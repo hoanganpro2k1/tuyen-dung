@@ -1,11 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
 export default function Header() {
   const [activeHash, setActiveHash] = useState("home");
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const menuRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -24,13 +25,25 @@ export default function Header() {
       setActiveHash(current);
     };
 
+    const handleClickOutside = (event: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setIsMobileMenuOpen(false);
+      }
+    };
+
     window.addEventListener("scroll", handleScroll);
+    document.addEventListener("mousedown", handleClickOutside);
+    
     handleScroll();
-    return () => window.removeEventListener("scroll", handleScroll);
+    
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
   }, []);
 
   return (
-    <header className="w-full sticky top-0 z-50 shadow-lg">
+    <header className="w-full sticky top-0 z-50 shadow-lg" ref={menuRef}>
       {/* Prominent Top Bar */}
       <div
         style={{
@@ -40,20 +53,21 @@ export default function Header() {
         }}
       >
         <div
-          className="container mx-auto px-6 flex flex-wrap items-center justify-between gap-4"
+          className="container mx-auto px-6 flex flex-nowrap md:flex-wrap items-center justify-between gap-4"
           style={{ maxWidth: 1200 }}
         >
           {/* Logo in Top Bar as per image (Optional but matches image requested earlier) */}
           <div className="flex items-center gap-2">
-            <div style={{ fontSize: "2rem", color: "#f5a623", lineHeight: 1 }}>
+            <div
+              className="text-2xl md:text-4xl"
+              style={{ color: "#f5a623", lineHeight: 1 }}
+            >
               🦅
             </div>
             <div
+              className="font-extrabold tracking-wider text-xl md:text-2xl"
               style={{
                 color: "#f5a623",
-                fontWeight: 800,
-                fontSize: "1.5rem",
-                letterSpacing: "1px",
               }}
             >
               GO GROUP
@@ -144,18 +158,14 @@ export default function Header() {
             <Link
               href="#apply"
               onClick={() => setActiveHash("apply")}
+              className="inline-flex items-center gap-1.5 uppercase font-bold rounded-full"
               style={{
                 background: "#f5a623",
                 color: "#0d1117",
-                fontWeight: 700,
-                fontSize: "0.875rem",
-                padding: "0.5rem 1.25rem",
-                borderRadius: "50px",
-                display: "inline-flex",
-                alignItems: "center",
-                gap: "0.5rem",
                 boxShadow: "0 4px 12px rgba(245,166,35,0.25)",
-                textTransform: "uppercase",
+                padding:
+                  "clamp(0.4rem, 1.5vw, 0.6rem) clamp(1rem, 3vw, 1.25rem)",
+                fontSize: "clamp(0.65rem, 2vw, 0.875rem)",
                 letterSpacing: "0.02em",
               }}
             >
@@ -319,54 +329,53 @@ export default function Header() {
               cursor: "pointer",
             }}
           >
-            <svg
-              width="22"
-              height="22"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2.5"
-            >
-              <path d="M3 12h18M3 6h18M3 18h18" />
-            </svg>
+            {isMobileMenuOpen ? (
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                <path d="M18 6L6 18M6 6l12 12" />
+              </svg>
+            ) : (
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                <path d="M3 12h18M3 6h18M3 18h18" />
+              </svg>
+            )}
           </button>
         </div>
-        
-        {/* Mobile Menu Dropdown */}
-        {isMobileMenuOpen && (
-          <div className="md:hidden absolute top-full left-0 w-full bg-[#1a1f3c] shadow-lg border-t border-white/10 flex flex-col py-2 px-6 transition-all z-50">
-            {[
-              "Trang Chủ",
-              "Giới Thiệu",
-              "Chính Sách",
-              "Vị Trí Tuyển Dụng",
-              "Ứng Tuyển",
-            ].map((item, i) => {
-              const hash = ["home", "about", "policy", "positions", "apply"][i];
-              const isActive = activeHash === hash;
-              return (
-                <Link
-                  key={i}
-                  href={`#${hash}`}
-                  onClick={() => {
-                    setActiveHash(hash);
-                    setIsMobileMenuOpen(false);
-                  }}
-                  style={{
-                    color: isActive ? "#f5a623" : "rgba(255,255,255,0.85)",
-                    fontSize: "0.9375rem",
-                    fontWeight: 500,
-                    padding: "0.75rem 0",
-                    borderBottom: "1px solid rgba(255,255,255,0.05)",
-                  }}
-                >
-                  {item}
-                </Link>
-              );
-            })}
-          </div>
-        )}
       </div>
+
+      {/* Mobile Menu Dropdown (Moved outside overflow:hidden) */}
+      {isMobileMenuOpen && (
+        <div className="md:hidden absolute top-full left-0 w-full bg-[#1a1f3c] shadow-lg border-t border-white/10 flex flex-col py-4 transition-all z-50">
+          {[
+            "Trang Chủ",
+            "Giới Thiệu",
+            "Chính Sách",
+            "Vị Trí Tuyển Dụng",
+            "Ứng Tuyển",
+          ].map((item, i) => {
+            const hash = ["home", "about", "policy", "positions", "apply"][i];
+            const isActive = activeHash === hash;
+            return (
+              <Link
+                key={i}
+                href={`#${hash}`}
+                onClick={() => {
+                  setActiveHash(hash);
+                  setIsMobileMenuOpen(false);
+                }}
+                style={{
+                  color: isActive ? "#f5a623" : "rgba(255,255,255,0.85)",
+                  fontSize: "1rem",
+                  fontWeight: 500,
+                  padding: "1rem 2rem",
+                  borderBottom: "1px solid rgba(255,255,255,0.08)",
+                }}
+              >
+                {item}
+              </Link>
+            );
+          })}
+        </div>
+      )}
     </header>
   );
 }
