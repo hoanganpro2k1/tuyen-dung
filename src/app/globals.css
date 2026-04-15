@@ -131,7 +131,7 @@ section {
 
 .btn-primary {
   background: var(--accent);
-  color: var(--white);
+  color: var(--dark);
   box-shadow: 0 4px 16px rgba(245, 166, 35, 0.4);
 }
 

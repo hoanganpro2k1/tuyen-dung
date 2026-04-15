@@ -181,6 +181,7 @@ export default function ApplySection() {
                 >
                   <div>
                     <label
+                      htmlFor="name"
                       style={{
                         display: "block",
                         fontSize: "0.875rem",
@@ -192,6 +193,7 @@ export default function ApplySection() {
                       Họ và tên *
                     </label>
                     <input
+                      id="name"
                       name="name"
                       value={formData.name}
                       onChange={handleChange}
@@ -214,6 +216,7 @@ export default function ApplySection() {
                   </div>
                   <div>
                     <label
+                      htmlFor="phone"
                       style={{
                         display: "block",
                         fontSize: "0.875rem",
@@ -225,6 +228,7 @@ export default function ApplySection() {
                       Số điện thoại *
                     </label>
                     <input
+                      id="phone"
                       name="phone"
                       type="tel"
                       value={formData.phone}
@@ -250,6 +254,7 @@ export default function ApplySection() {
 
                 <div style={{ marginBottom: "1rem" }}>
                   <label
+                    htmlFor="email"
                     style={{
                       display: "block",
                       fontSize: "0.875rem",
@@ -261,6 +266,7 @@ export default function ApplySection() {
                     Email *
                   </label>
                   <input
+                    id="email"
                     name="email"
                     type="email"
                     value={formData.email}
@@ -285,6 +291,7 @@ export default function ApplySection() {
 
                 <div style={{ marginBottom: "1rem" }}>
                   <label
+                    htmlFor="position"
                     style={{
                       display: "block",
                       fontSize: "0.875rem",
@@ -296,6 +303,7 @@ export default function ApplySection() {
                     Vị trí ứng tuyển *
                   </label>
                   <select
+                    id="position"
                     name="position"
                     value={formData.position}
                     onChange={handleChange}
@@ -332,6 +340,7 @@ export default function ApplySection() {
 
                 <div style={{ marginBottom: "1.75rem" }}>
                   <label
+                    htmlFor="message"
                     style={{
                       display: "block",
                       fontSize: "0.875rem",
@@ -343,6 +352,7 @@ export default function ApplySection() {
                     Giới thiệu bản thân
                   </label>
                   <textarea
+                    id="message"
                     name="message"
                     value={formData.message}
                     onChange={handleChange}

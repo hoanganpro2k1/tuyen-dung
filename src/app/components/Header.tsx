@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 
 export default function Header() {
   const [activeHash, setActiveHash] = useState("home");
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -308,6 +309,7 @@ export default function Header() {
           {/* Mobile menu icon Original */}
           <button
             className="md:hidden"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             style={{
               color: "#fff",
               padding: 8,
@@ -329,6 +331,41 @@ export default function Header() {
             </svg>
           </button>
         </div>
+        
+        {/* Mobile Menu Dropdown */}
+        {isMobileMenuOpen && (
+          <div className="md:hidden absolute top-full left-0 w-full bg-[#1a1f3c] shadow-lg border-t border-white/10 flex flex-col py-2 px-6 transition-all z-50">
+            {[
+              "Trang Chủ",
+              "Giới Thiệu",
+              "Chính Sách",
+              "Vị Trí Tuyển Dụng",
+              "Ứng Tuyển",
+            ].map((item, i) => {
+              const hash = ["home", "about", "policy", "positions", "apply"][i];
+              const isActive = activeHash === hash;
+              return (
+                <Link
+                  key={i}
+                  href={`#${hash}`}
+                  onClick={() => {
+                    setActiveHash(hash);
+                    setIsMobileMenuOpen(false);
+                  }}
+                  style={{
+                    color: isActive ? "#f5a623" : "rgba(255,255,255,0.85)",
+                    fontSize: "0.9375rem",
+                    fontWeight: 500,
+                    padding: "0.75rem 0",
+                    borderBottom: "1px solid rgba(255,255,255,0.05)",
+                  }}
+                >
+                  {item}
+                </Link>
+              );
+            })}
+          </div>
+        )}
       </div>
     </header>
   );
