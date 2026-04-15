@@ -49,17 +49,17 @@ export default function CompanyInfoSection() {
             {
               icon: "📍",
               label: "Địa chỉ",
-              value: "Số 123 Đường Lê Lợi, Phường Bến Thành, Quận 1, TP. Hồ Chí Minh",
+              value: "Số 45, đường An Dương Vương,\nPhường Trường Thi, TP Vinh, Nghệ An.",
             },
             {
               icon: "📞",
               label: "Điện thoại",
-              value: "0387 474 747\n0387 474 748",
+              value: "0983 439 381",
             },
             {
               icon: "📧",
               label: "Email tuyển dụng",
-              value: "hr@gogroup.vn",
+              value: "contact@gmail.com",
             },
             {
               icon: "🌐",

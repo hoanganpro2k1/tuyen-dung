@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+
 export default function CTABanner() {
   return (
     <section
@@ -87,7 +89,7 @@ export default function CTABanner() {
           </p>
 
           <div style={{ display: "flex", flexWrap: "wrap", gap: "1rem", justifyContent: "center" }}>
-            <a
+            <Link
               href="#positions"
               style={{
                 display: "inline-flex",
@@ -105,21 +107,21 @@ export default function CTABanner() {
                 cursor: "pointer",
               }}
               onMouseEnter={(e) => {
-                (e.currentTarget as HTMLElement).style.transform = "translateY(-3px)";
-                (e.currentTarget as HTMLElement).style.boxShadow = "0 10px 30px rgba(245,166,35,0.6)";
+                (e.currentTarget as HTMLAnchorElement).style.transform = "translateY(-3px)";
+                (e.currentTarget as HTMLAnchorElement).style.boxShadow = "0 10px 30px rgba(245,166,35,0.6)";
               }}
               onMouseLeave={(e) => {
-                (e.currentTarget as HTMLElement).style.transform = "translateY(0)";
-                (e.currentTarget as HTMLElement).style.boxShadow = "0 6px 20px rgba(245,166,35,0.5)";
+                (e.currentTarget as HTMLAnchorElement).style.transform = "translateY(0)";
+                (e.currentTarget as HTMLAnchorElement).style.boxShadow = "0 6px 20px rgba(245,166,35,0.5)";
               }}
             >
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                 <path d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
               </svg>
               Xem Vị Trí Tuyển Dụng
-            </a>
+            </Link>
 
-            <a
+            <Link
               href="#apply"
               style={{
                 display: "inline-flex",
@@ -136,19 +138,19 @@ export default function CTABanner() {
                 cursor: "pointer",
               }}
               onMouseEnter={(e) => {
-                (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,0.1)";
-                (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.8)";
+                (e.currentTarget as HTMLAnchorElement).style.background = "rgba(255,255,255,0.1)";
+                (e.currentTarget as HTMLAnchorElement).style.borderColor = "rgba(255,255,255,0.8)";
               }}
               onMouseLeave={(e) => {
-                (e.currentTarget as HTMLElement).style.background = "transparent";
-                (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.5)";
+                (e.currentTarget as HTMLAnchorElement).style.background = "transparent";
+                (e.currentTarget as HTMLAnchorElement).style.borderColor = "rgba(255,255,255,0.5)";
               }}
             >
               Ứng Tuyển Ngay
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                 <path d="M5 12h14M12 5l7 7-7 7"/>
               </svg>
-            </a>
+            </Link>
           </div>
         </div>
       </div>

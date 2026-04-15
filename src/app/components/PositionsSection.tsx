@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+
 const positions = [
   {
     id: "telesales",
@@ -243,7 +245,7 @@ export default function PositionsSection() {
                 </div>
 
                 {/* Apply button */}
-                <a
+                <Link
                   href="#apply"
                   style={{
                     display: "flex",
@@ -260,17 +262,17 @@ export default function PositionsSection() {
                     textAlign: "center",
                   }}
                   onMouseEnter={(e) => {
-                    (e.currentTarget as HTMLElement).style.opacity = "0.85";
+                    (e.currentTarget as HTMLAnchorElement).style.opacity = "0.85";
                   }}
                   onMouseLeave={(e) => {
-                    (e.currentTarget as HTMLElement).style.opacity = "1";
+                    (e.currentTarget as HTMLAnchorElement).style.opacity = "1";
                   }}
                 >
                   Ứng Tuyển Vị Trí Này
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                     <path d="M5 12h14M12 5l7 7-7 7"/>
                   </svg>
-                </a>
+                </Link>
               </div>
             </div>
           ))}
